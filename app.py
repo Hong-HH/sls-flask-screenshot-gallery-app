@@ -14,7 +14,7 @@ from resources.logout import LogoutResource
 from resources.blocklist import check_blocklist
 from resources.photo import PhotoResource
 from resources.photo_change import PhotoChangeResource
-from resources.rekognition import TagResource
+from resources.rekognition import TagResource,GetTagResource
 
 
 app = Flask(__name__)
@@ -42,7 +42,8 @@ api.add_resource(UserLoginResource, '/v1/user/login')           # 로그인
 api.add_resource(LogoutResource, '/v1/user/logout')             # 로그아웃
 api.add_resource(PhotoResource, '/v1/photo')                    # 사진 업로드 / 조회
 api.add_resource(PhotoChangeResource, '/v1/photo/<int:photo_id>')# 사진의 설명 변경, 사진 삭제
-api.add_resource(TagResource, '/v1/tag/<int:photo_id>')         # 사진의 태그 및 설명
+api.add_resource(TagResource, '/v1/tag')                        # 사진 태그 레코그니션
+api.add_resource(GetTagResource, '/v1/tag/<int:photo_id>')      # 사진의 태그 및 설명 
 
 
 
