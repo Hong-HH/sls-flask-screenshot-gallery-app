@@ -165,7 +165,6 @@ class PhotoListResource(Resource) :
         offset = request.args.get('offset')
         limit = request.args.get('limit')
 
-        photo_id_list = []
 
         try :
             # 클라이언트가 GET 요청하면, 이 함수에서 우리가 코드를 작성해 주면 된다.
@@ -194,7 +193,6 @@ class PhotoListResource(Resource) :
                 record_list[i]['created_at'] = record['created_at'].isoformat()
                 record_list[i]['updated_at'] = record['updated_at'].isoformat()
                 record_list[i]['photo_time'] = record['photo_time'].isoformat()
-                photo_id_list.append(record['id'])
                 i = i +1
 
             photo_list = record_list
@@ -211,8 +209,8 @@ class PhotoListResource(Resource) :
 
         
         try :
-            for photo_id in photo_id_list :
-                count = 0
+            for count in range(len(photo_list)) :
+                photo_id = photo_list[count]['id']
                 query = '''SELECT * FROM tag
                             where photo_id = %s; '''
                 
@@ -222,7 +220,17 @@ class PhotoListResource(Resource) :
                 # select 문은 아래 내용이 필요하다.
                 # 커서로 부터 실행한 결과 전부를 받아와라.
                 record_list = cursor.fetchall()
+                print("photoID" + str(photo_id))
                 print(record_list)
+                print("record_list END")
+
+                
+
+                if record_list is None :
+                    record_list = []
+                elif len(record_list) == 0 :
+                    record_list = []
+               
 
                 ### 중요. 파이썬의 시간은, JSON으로 보내기 위해서
                 ### 문자열로 바꿔준다.
@@ -232,7 +240,6 @@ class PhotoListResource(Resource) :
                     i = i +1
                 
                 photo_list[count]["tag"] = record_list
-                count = count +1
 
 
         # 3. 클라이언트에 보낸다. 
@@ -253,5 +260,3 @@ class PhotoListResource(Resource) :
         
 
         return {'error' : 200, 'count' : len(photo_list), 'result' : photo_list }, HTTPStatus.OK
-
-
