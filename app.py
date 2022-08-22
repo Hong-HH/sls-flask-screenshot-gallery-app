@@ -12,7 +12,7 @@ from resources.register import UserRegisterResource
 from resources.login import UserLoginResource
 from resources.logout import LogoutResource
 from resources.blocklist import check_blocklist
-from resources.photo import PhotoResource
+from resources.photo import PhotoResource, PhotoListResource
 from resources.photo_change import PhotoChangeResource
 from resources.rekognition import TagResource,GetTagResource
 
@@ -45,6 +45,7 @@ api.add_resource(PhotoChangeResource, '/v1/photo/<int:photo_id>')# 사진의 설
 api.add_resource(TagResource, '/v1/tag')                        # 사진 태그 레코그니션
 api.add_resource(GetTagResource, '/v1/tag/<int:photo_id>')      # 사진의 태그 및 설명 
 
+api.add_resource(PhotoListResource, '/v1/photoTag')                    # 사진과 태그를 한번에 조회
 
 
 # 기본 루트 연결 확인 멘트
