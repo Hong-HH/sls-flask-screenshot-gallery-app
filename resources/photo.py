@@ -82,9 +82,6 @@ class PhotoResource(Resource) :
                 # 5. 커넥션을 커밋한다. => 디비에 영구적으로 반영하라는 뜻.
                 connection.commit()
 
-                # 디비에 저장된 유저의 아이디를 가져온다.
-                photo_id = cursor.lastrowid
-
             except Error as e:
                 print('Error', e)
                 return {'error' : 500, 'result' : str(e)}, HTTPStatus.INTERNAL_SERVER_ERROR
@@ -98,7 +95,7 @@ class PhotoResource(Resource) :
 
             
             
-            return {'error' : 200, 'result' :  str(photo_id)+ ' 업로드 되었습니다.'}, HTTPStatus.OK
+            return {'error' : 200, 'result' : '업로드 되었습니다.'}, HTTPStatus.OK
 
 
     @jwt_required()
