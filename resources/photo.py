@@ -98,7 +98,7 @@ class PhotoResource(Resource) :
 
             
             
-            return {'error' : 200, 'result' :  str(photo_id)+ '업로드 되었습니다.'}, HTTPStatus.OK
+            return {'error' : 200, 'result' :  str(photo_id)+ ' 업로드 되었습니다.'}, HTTPStatus.OK
 
 
     @jwt_required()
